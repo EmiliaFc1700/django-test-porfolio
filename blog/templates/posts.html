@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h1> Posts </h1>
+
+{% for post in posts %}
+    <div class="p-3">
+        <div class="card card-body bg-black">
+            <div class="row">
+                <div class="col-3">
+                    <img src="{{post.image.url}}" alt="{{post.title}}" class="img-fluid">
+                </div>
+                <div class="col-9">
+                    <h2>{{post.title}}</h2>
+                    {% comment %} srtiptags para ocultar las etiquetas html que uso dentro de mi vista admin
+                    truncatechars es para limitar la cantidad de caracteres {% endcomment %}
+                    <p>{{post.description|striptags|truncatechars:100}}</p>
+                    {% comment %} https://docs.djangoproject.com/en/4.1/ref/templates/builtins/#date
+                    usamos el formato que nos da la url y usamos otro filtro llamado upper para volver la letra mayuscula{% endcomment %}
+                    <p>{{post.date|date:'M d Y'|upper}}</p>
+            
+                    {% comment %} para hacer que un link melleve a una ruta especifica nos vamos a urls.py y usamos la variable de django
+                    llamada app_name, va a guardar 'blog', ese blog lo usamos aqui
+                    de blog quiero navegar a post_detail y usamos como parametro post.id{% endcomment %}
+                    <a class="btn btn-primary" href="{% url 'blog:post_detail' post.id %}" >Detail</a>
+                </div>
+    
+            </div>
+    
+        </div>
+    </div>
+{% endfor %} 
+
+{% endblock content %}
+

@@ -1,0 +1,56 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+{% load static %}
+<header class="row bg-black p-4 justify-content-around">
+    <div class="col-md-auto pd-4">
+        <img src="{% static 'profile.jpg' %} " width="auto" height="250" rounded-0 md-4 >
+    </div>
+    <div class="col-md-8 my-auto">
+        <h1>I'm <strong>Emilia Fasce</strong></h1>
+        <h3>Full Stack web developer</h3>
+        <p>Laborum dignissimos impedit repellat deleniti provident obcaecati vero iusto, voluptatem unde alias consequuntur aut nostrum molestias, fugiat amet doloribus nemo magnam iste cumque, itaque dolorem expedita repudiandae accusamus quod voluptatem possimus nulla eius voluptates, debitis ipsum labore aut distinctio vero impedit porro temporibus optio suscipit. Nulla eaque officiis perspiciatis, porro molestiae cupiditate eligendi suscipit, eos laboriosam temporibus explicabo eveniet quos commodi omnis officiis ullam ipsam, quaerat possimus officiis praesentium sint quod quasi. </p>
+        <a 
+        class="btn btn-primary btn-lg rounded-0 my-3" 
+        href="{% static 'Curriculum.pdf' %}"
+        target="_blank" 
+        >Download CV
+    </a>
+    </div>
+</header>
+
+<div class="row my-4 text-center">
+    <h1>Welcome</h1>
+    <p>{% lorem 3 b random %}</p>
+{% comment %} en django usamos la siguiente sintaxis{% %} {% endcomment %}
+{% comment %} dentro de esta sintaxis podemos colocar un for
+que dice: por cada proyecto en la lista de proyectos hacer algo
+siendo project cada proyecto de la ventana administrador
+y projects proviene de la variable que creamos en views "projects = Project.objects.all()"{% endcomment %}
+{% comment %} 
+{% for project in projects %}
+{% endfor%} 
+{% endcomment %}
+    {% for project in projects %}
+    <div class="col-md-4 p-4" >
+        <div class="card bg-black card-project text-light">
+            <img src="{{project.image.url}}" alt="{{project.title}}" class="card-img-top">
+            <div class="card-body">
+                {% comment %} muestrame el titulo del proyecto de la vista administrador {% endcomment %}
+                <h5>{{project.title}}</h5>
+                <p>{{project.description}}</p>
+                
+                {% if project.url %}
+                <a 
+                    class="btn btn-light btn-primary btn-sm rounded-0 my-3" 
+                    href="{{project.url}}"
+                    >{{project.url}}
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    {% endfor%}
+</div>
+{% endblock%}
